@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"wesionary.team/dipeshdulal/accountengine/controllers/accounttype"
+	"wesionary.team/dipeshdulal/accountengine/controllers/chartofaccount"
 	"wesionary.team/dipeshdulal/accountengine/models"
 )
 
@@ -28,6 +29,15 @@ func main() {
 		accType.GET("/:id", accounttype.GetOneAccount)
 		accType.PATCH("/:id", accounttype.EditAccount)
 		accType.DELETE("/:id", accounttype.DeleteAccount)
+	}
+
+	coa := route.Group("/coa")
+	{
+		coa.GET("/", chartofaccount.GetAllChartOfAccount)
+		coa.GET("/:id", chartofaccount.GetOneChartOfAccount)
+		coa.POST("/", chartofaccount.SaveChartOfAccount)
+		coa.PATCH("/:id", chartofaccount.UpdateChartOfAccount)
+		coa.DELETE("/:id", chartofaccount.DeleteChartOfAccount)
 	}
 
 	route.Run(":5000")
