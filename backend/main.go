@@ -7,6 +7,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"wesionary.team/dipeshdulal/accountengine/controllers/accounttype"
 	"wesionary.team/dipeshdulal/accountengine/controllers/chartofaccount"
+	"wesionary.team/dipeshdulal/accountengine/controllers/transactions"
 	"wesionary.team/dipeshdulal/accountengine/models"
 )
 
@@ -38,6 +39,15 @@ func main() {
 		coa.POST("/", chartofaccount.SaveChartOfAccount)
 		coa.PATCH("/:id", chartofaccount.UpdateChartOfAccount)
 		coa.DELETE("/:id", chartofaccount.DeleteChartOfAccount)
+	}
+
+	trx := route.Group("/trx")
+	{
+		trx.GET("/", transactions.GetAllTransactions)
+		trx.GET("/:id", transactions.GetOneTransaction)
+		trx.POST("/", transactions.SaveTransaction)
+		trx.PATCH("/:id", transactions.UpdateTransaction)
+		trx.DELETE("/:id", transactions.DeleteTransaction)
 	}
 
 	route.Run(":5000")
